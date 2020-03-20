@@ -1,0 +1,84 @@
+<html>
+<head>
+<title> Bouncy Penguin </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",500,400);
+
+var background = new sjs.Image("Images/Ocean.png.png");
+background.setSize(sjs.getWidth(), sjs.getHeight());
+
+  var Player = new sjs.Image("Images/Penguin.png.png");
+  Player.type = "player"
+
+Player.setSize(140,160);
+Player.bottom().centerH(0,50);
+Player.setGravity(3);
+
+sjs.keyDown(RIGHT_KEY, function(){
+Player.pushRight(1);
+});
+
+sjs.keyDown(LEFT_KEY, function(){
+Player.pushLeft(1);
+});
+
+//Jumping Code
+  var canJump = true;
+  sjs.keyDown(UP_KEY, function(){
+	if(canJump == true){
+		canJump = false;
+		Player.pushUp(45);
+		setTimeout(function(){
+			canJump=true;
+		},1000);
+      }
+	});
+
+  var donut = new sjs.Image("Images/Donut.png.png");
+  donut.type = "ground"
+  donut.setSize(500,50);
+  donut.bottom().centerH();
+  donut.noBounds = true;
+
+ 
+
+  sjs.onHit ("player", "ground", function(x,y){
+  	sjs.stoppedBy(x,y);
+  });
+
+  setInterval(function(){
+var gem = new sjs.Image("Images/Gem.png.png");
+  gem.type = "gem";
+  gem.setSize(40,40);
+  gem.moveTo(Math.random()*(gem.getClamp().x), Math.random()*(gem.getClamp().y));
+  
+  },1000);
+
+
+
+  var score = 0;
+  var score_txt = new sjs.Text("Score: 0", 21, "blue");
+  score_txt.right().offset(-20,0);
+  score_txt.fixed = true;
+
+sjs.onHit("player","gem", function(x,y){
+    score = score + 1;
+    score_txt.setText("Score :"+ score);
+    localStorage.setItem("score", score);
+	y.destroy();
+});
+
+
+  
+
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> Bouncy Penguin </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>

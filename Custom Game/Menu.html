@@ -1,0 +1,28 @@
+<html>
+<head>
+<title> Custom Game </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",500,400);
+
+var menu_text = new sjs.Text("Bouncy Penguin! Use left, right, and up arrows to get the gems!", 28, "blue");
+menu_text.centerH();
+
+var startBtn = new sjs.Button("Start", function(){
+	window.location = "Bouncy Penguin.html";
+});
+startBtn.center();
+
+var info_text = new sjs.Text("Created By A. Rainey", 20, "black");
+info_text.bottom().centerH();
+
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> Custom Game </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>
